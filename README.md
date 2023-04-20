@@ -1,8 +1,8 @@
 # 东北大学学位论文(Overleaf版)
 ## Neu Thesis-Overleaf
-东北大学(沈阳)学位论文LaTex版(硕博士通用)，可直接导入[Overleaf](https://www.overleaf.com/)。
+东北大学(沈阳)学位论文LaTex版(硕博士通用)，可直接导入[Overleaf](https://www.overleaf.com/)。**如果你需要英文版，可以在[这里](https://github.com/sci-m-wang/NEU-Thesis-en)找到。**
 
-LaTex version of Northeastern University (Shenyang)'s thesis (common to master's and doctoral degrees), which can be imported directly into [Overleaf](https://www.overleaf.com/).
+LaTex version of Northeastern University (Shenyang)'s thesis (common to master's and doctoral degrees), which can be imported directly into [Overleaf](https://www.overleaf.com/). **If you need the English version, you can find it [here](https://github.com/sci-m-wang/NEU-Thesis-en).**
 
 这个模板是在[mervin0502/neuthesis](https://github.com/mervin0502/neuthesis)和[NEUAI/neuthesis-enhanced](https://github.com/NEUAI/neuthesis-enhanced)两个项目基础上修改的。
 
