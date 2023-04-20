@@ -1,0 +1,573 @@
+%---------------------------------------------------------------------------%
+%-                                                                         -%
+%-                           Document Style                                -%
+%-                                                                         -%
+%---------------------------------------------------------------------------%
+%- Copyright (C) Huangrui Mo <huangrui.mo@gmail.com> 
+%- This is free software: you can redistribute it and/or modify it
+%- under the terms of the GNU General Public License as published by
+%- the Free Software Foundation, either version 3 of the License, or
+%- (at your option) any later version.
+%---------------------------------------------------------------------------%
+%->> Identification
+%---------------------------------------------------------------------------%
+\NeedsTeXFormat{LaTeX2e}%
+\ProvidesPackage{Style/artratex}[2014/10/01 v0.1 LaTeX macros package]%
+%---------------------------------------------------------------------------%
+%->> Declare options
+%---------------------------------------------------------------------------%
+%-
+%-> Platform fontset <windows>, <mac>, <adobe>, <times>, <others>
+%-
+\RequirePackage{expl3}% LaTeX3 programming environment
+\ExplSyntaxOn%
+\providecommand{\g__ctex_fontset_tl}{}% platform fontset state variable
+\edef\artxfontset{\g__ctex_fontset_tl}% expanded platform fontset state variable
+\ExplSyntaxOff%
+\newif\ifartx@windows \artx@windowsfalse
+\newif\ifartx@mac \artx@macfalse
+\newif\ifartx@adobe \artx@adobefalse
+\newif\ifartx@times \artx@timesfalse
+\newif\ifartx@others \artx@othersfalse
+\RequirePackage{etoolbox}% a toolbox of programming facilities
+\newcommand{\artxifstreq}{\expandafter\ifstrequal\expandafter}% expansion control
+\artxifstreq{\artxfontset}{windows}{\artx@windowstrue\artx@timestrue}{%
+	\artxifstreq{\artxfontset}{mac}{\artx@mactrue\artx@timestrue}{%
+		\artxifstreq{\artxfontset}{adobe}{\artx@adobetrue\artx@timestrue}{%
+			\artx@otherstrue\artx@timesfalse}}}
+%-
+%-> LaTeX engine <pdflatex>, <lualatex>, <xelatex>
+%-
+\newif\ifartx@pdftex \artx@pdftexfalse
+\newif\ifartx@luatex \artx@luatexfalse
+\newif\ifartx@xetex \artx@xetexfalse
+\RequirePackage{ifxetex,ifluatex}% LaTeX engine detection
+\ifxetex%
+	\artx@xetextrue
+	\RequirePackage{xeCJK}% support calling system fonts
+\else\ifluatex%
+		\artx@luatextrue
+	\else%
+		\artx@pdftextrue
+	\fi\fi%
+%-
+%-> Bibliography engine <bibtex>, <biber>
+%-
+\newif\ifartx@bibtex \artx@bibtextrue
+\newif\ifartx@biber \artx@biberfalse
+\DeclareOption{bibtex}{%
+	\artx@bibtextrue
+	\artx@biberfalse
+}
+\DeclareOption{biber}{%
+	\artx@bibtexfalse
+	\artx@bibertrue
+}
+%-
+%-> Page layout reconfiguration
+%-
+\newif\ifartx@geometry \artx@geometryfalse
+\DeclareOption{geometry}{%
+	\artx@geometrytrue
+}
+%-
+%-> Landscape layout support
+%-
+\newif\ifartx@lscape \artx@lscapefalse
+\DeclareOption{lscape}{%
+	\artx@lscapetrue
+}
+%-
+%-> Header and footer
+%-
+\newif\ifartx@myhdr \artx@myhdrfalse
+\DeclareOption{myhdr}{%
+	\artx@myhdrtrue
+}
+%-
+%-> Color support
+%-
+\newif\ifartx@color \artx@colorfalse
+\DeclareOption{color}{%
+	\artx@colortrue
+}
+%-
+%-> Page background
+%-
+\newif\ifartx@background \artx@backgroundfalse
+\DeclareOption{background}{%
+	\artx@colortrue
+	\artx@backgroundtrue
+}
+%-
+%-> Complex diagrams support
+%-
+\newif\ifartx@tikz \artx@tikzfalse
+\DeclareOption{tikz}{%
+	\artx@colortrue
+	\artx@tikztrue
+}
+%-
+%-> Complex tables support
+%-
+\newif\ifartx@table \artx@tablefalse
+\DeclareOption{table}{%
+	\artx@tabletrue
+}
+%-
+%-> Enhanced list
+%-
+\newif\ifartx@list \artx@listfalse
+\DeclareOption{list}{%
+	\artx@colortrue
+	\artx@listtrue
+}
+%-
+%-> Extra math support
+%-
+\newif\ifartx@math \artx@mathfalse
+\DeclareOption{math}{%
+	\artx@mathtrue
+}
+%-
+%-> Handle non-implemented options
+%-
+\DeclareOption*{%
+	\PackageWarning{artratex}{Unknown option '\CurrentOption'}%
+}
+%-
+%-> Terminates all options processing
+%-
+\ProcessOptions\relax%
+%---------------------------------------------------------------------------%
+%->> Required packages
+%---------------------------------------------------------------------------%
+%-
+%-> Math packages
+%-
+\RequirePackage{amsmath}% math packages
+\ifartx@math% extra math packages
+	\RequirePackage{mathtools,amsfonts}%
+\fi
+%-
+%-> Language settings
+%-
+\ifartx@pdftex% <pdflatex> call font packages
+	\RequirePackage[utf8]{inputenc}% set input encoding, document must use utf-8 encoding
+	\RequirePackage[T1]{fontenc}% set font encoding to enable modern font encoding
+	%- Call font package options:
+	%- Text + Math: Times Roman
+	\RequirePackage{newtxtext}%
+	\RequirePackage[cmintegrals]{newtxmath}% load after math packages
+	%- Text + Math: Palatino
+	%\RequirePackage{palatino}%
+\else% <xelatex> or <lualatex> call system fonts
+	\RequirePackage[cmintegrals]{newtxmath}% math symbol font, load after math but before fontspec packages
+	\RequirePackage{fontspec}% support calling system fonts
+	%- Font properties: <family> + <weight> + <shape> + <size>
+	%- Specify the three default TeX font families: <main>, <sans>, <mono>
+	%- \setxxxxfont{<font>}[BoldFont=<font-b>,ItalicFont=<font-i>]%
+	%- <font>: \mdseries\upshape; <font-b>: \bfseries\upshape; <font-i>: \mdseries\itshape
+	%- <\lfseries|\mdseries|\bfseries>: weight of font, default <\mdseries>
+	%- <\upshape|\itshape|\scshape>: shape of font, default <\upshape>
+	%- Roman or Serif - typefaces with strokes - for main content
+	%- examples: Times New Roman, Garamond, Adobe Garamond Pro
+	%\setmainfont{Garamond}[BoldFont=Garamond-Bold,ItalicFont=Garamond-Italic]%
+	%- font switches: {\rmfamily ...}, \textrm{...}, {\normalfont ...}, \textnormal{...}
+	%- the latter is due to \renewcommand*{\familydefault}{\rmdefault}
+	%- Sans serif - typefaces without strokes - for headings demanding high readability
+	%- examples: Arial, Helvetica, Gill Sans, Futura
+	%\setsansfont{Gill Sans MT}% font switches: {\sffamily ...}, \textsf{...}
+	%- Monospaced - typefaces with same width - for programming, etc
+	%- examples: Rockwell, Andale Mono, Courier
+	%\setmonofont{Rockwell}% font switches: {\ttfamily, ...}, \texttt{...}
+	%- Specify user-defined font families and font switches
+	%\newfontfamily\<font-switch>{<font>}[<font features>]%
+	%\newcommand{\text<font-switch>}[1]{{\<font-switch> #1}}%
+	% without NFSSFamily option, a font family is defined only when the added font name
+	% is a new one. mathrm and mathsf can be set by \setmathrm and \setmathsf
+	%\RequirePackage{unicode-math}% another math symbol font configuration
+	%\setmathfont{XITS Math}% a complete symbol set for STIX math fonts
+	\ifartx@windows%
+		\setCJKmainfont[AutoFakeBold,ItalicFont=KaiTi]{SimSun}%
+		\setCJKsansfont[AutoFakeBold]{SimHei}%
+		\setCJKmonofont{FangSong}%
+	\else\ifartx@mac%
+			\setCJKmainfont[ItalicFont=Kaiti SC,BoldItalicFont=Kaiti SC Bold]{Songti SC Light}%
+			\setCJKsansfont{Heiti SC}%
+			\setCJKmonofont{STFangsong}%
+		\else\ifartx@adobe
+				\setCJKmainfont[AutoFakeBold,ItalicFont=AdobeKaitiStd-Regular]{AdobeSongStd-Light}%
+				\setCJKsansfont[AutoFakeBold]{AdobeHeitiStd-Regular}%
+				\setCJKmonofont{AdobeFangsongStd-Regular}%
+			\fi\fi\fi
+	\ifartx@times%
+		\setmainfont[NFSSFamily=entextrm,ItalicFont=Times New Roman]{Times New Roman}%
+		\setsansfont[NFSSFamily=entextsf,ItalicFont=Times New Roman]{Times New Roman}%
+	\else
+		\setmainfont[NFSSFamily=entextrm]{FreeSerif}%
+		\setsansfont[NFSSFamily=entextsf]{FreeSerif}%
+	\fi
+\fi
+
+% \renewcommand*{\songti}{\fontfamily{SimSun}\selectfont}
+% \newcommand*{\kaiti}{\fontfamily{KaiTI}\selectfont}
+
+%-
+%-> Bibliography processor and package
+%-
+%- Bibtex processor + natbib package
+\ifartx@bibtex%
+	\RequirePackage[square,comma,super,sort&compress]{natbib}% superscripted square bracket
+	\bibliographystyle{Biblio/gbt7714-unsrt}% numbered scheme
+\fi
+%- Biber processor + biblatex package
+\ifartx@biber%
+	\RequirePackage[
+		backend=biber,
+		bibstyle=gb7714-2015,
+		citestyle=gb7714-2015,
+		% citestyle=numeric-comp
+		url=false,
+		doi=false,
+		eprint=false,
+	]{biblatex}%
+	\addbibresource{Biblio/ref.bib}%
+\fi
+%-
+%-> Figure environment support
+%-
+\RequirePackage{multirow}
+\RequirePackage{makecell}
+\RequirePackage{graphicx}% packages for including graphics
+\RequirePackage{epstopdf}
+\RequirePackage{setspace}
+\RequirePackage[
+	font={small, singlespacing, stretch=1.1},
+	parskip=0pt,
+	skip=0pt,
+	labelsep=space,
+	justification=centering
+]{caption}% options: [margin=10pt,labelfont=bf]
+% \captionsetup{font={stretch=1.1}}
+\RequirePackage{subcaption}% package for subfigures
+\RequirePackage[list=off]{bicaption}% package for binary captions
+\captionsetup[figure][bi-first]{format=hang,hangindent=-0.5em}%
+\captionsetup[figure][bi-second]{format=hang,hangindent=-2em,name=Fig.}%
+\captionsetup[table][bi-first]{format=hang,hangindent=-0.5em}%
+\captionsetup[table][bi-second]{format=hang,hangindent=-2em,name=Table}%
+\RequirePackage[section]{placeins}% prevent floats from being moved over section
+%-
+%-> Page layout and spacing
+%-
+\ifartx@geometry% enable geometry to redefine page layout
+	\RequirePackage{geometry}% page layout
+	%\RequirePackage{setspace}% line spacing
+\fi
+\ifartx@lscape% landscape layout
+	\RequirePackage{fancyhdr}% fancy headers and footers
+	%- usage: \begin{landscape} [\thispagestyle{lscape}] text... \end{landscape}
+	\RequirePackage{pdflscape}% landscape environment
+	\RequirePackage[absolute]{textpos}% rotated page number
+\fi
+\ifartx@myhdr% header and footer style
+	\RequirePackage{fancyhdr}% fancy headers and footers
+\fi
+%\RequirePackage{microtype}% improves general appearance of the text
+%-
+%-> Color
+%-
+\ifartx@color% enable color package to use color
+	%\RequirePackage{color}%
+	\RequirePackage[usenames,dvipsnames,table]{xcolor}%
+\fi
+%-
+%-> Draw graphics directly with TeX commands
+%-
+\ifartx@tikz%
+	\RequirePackage{tikz}% automatically load pgf package
+	\usetikzlibrary{% load libraries
+		positioning,
+		arrows,
+		calc,
+		trees
+	}%
+\fi
+%-
+%-> Complex tables
+%-
+\ifartx@table%
+	\RequirePackage{ctable}% imports the array, tabularx and booktabs packages
+	\RequirePackage{diagbox}
+	\renewcommand{\arraystretch}{1.2}
+\fi
+%-
+%-> List structures
+%-
+\ifartx@list% enable enhanced list and verbatim structures
+	\RequirePackage{paralist} % for inline lists
+	\setdefaultenum{(1)}{(a)}{(i)}{1)}
+	\RequirePackage{verbatim}% improve verbatim environment
+	\RequirePackage{enumitem}% configure the enumerate environment
+	\setlist[enumerate]{wide=\parindent}% only indent the first line
+	\setlist[itemize]{wide=\parindent}% only indent the first line
+	\setlist{nosep}% default text spacing
+	\RequirePackage{listings}% source code
+	\RequirePackage{algpseudocode,algorithm,algorithmicx}% algorithm
+\fi
+%-
+%-> Links support
+%-
+
+\RequirePackage{hyperref}%
+\hypersetup{% set hyperlinks
+	bookmarks=true,% show bookmarks bar
+	pdfencoding=auto,% allows non-Latin based languages in bookmarks
+	pdffitwindow=false,% window fit to page when opened
+	pdfstartview={FitH},% fits the width of the page to the window
+	pdfnewwindow=true,% links in new window
+	backref=true,% do bibliographical back references
+	pagebackref=true,% backreference by page number
+	colorlinks=true,% false: boxed links; true: colored links
+	linkcolor=black,% color of internal links
+	citecolor=blue,% color of links to bibliography
+	% filecolor=magenta,% color of file links
+	urlcolor=blue,% color of external links
+	bookmarksnumbered=true,% put section numbers in bookmarks
+	bookmarksopenlevel=4,
+	%hidelinks% remove link color and border
+}
+\RequirePackage{siunitx}%
+%---------------------------------------------------------------------------%
+%->> Configuration command
+%---------------------------------------------------------------------------%
+%-
+%-> Extensions and directories for graphics
+%-
+%- Declare graphic extensions for automatic selection when including graphics
+%- via avoiding supplying graphic extensions in \includegraphics command,
+%- the source file can be more general and adaptive
+\ifartx@xetex%
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg,.eps,.tif,.bmp,.gif}%
+\else% <pdflatex> or <lualatex>
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}%
+\fi
+\graphicspath{{Img/}}% search path for figures
+%-
+%-> Layout, space, and style
+%-
+\ifartx@geometry% enable geometry to redefine page layout
+	\geometry{paper=a4paper,left=31.7mm,right=31.7mm,top=25.4mm,bottom=25.4mm}%
+\fi
+\linespread{1.5}% 1.5 for "one and a half" line spacing, and 2.0 for "double" line spacing
+%\setlength{\parskip}{0.5ex plus 0.25ex minus 0.25ex}% skip space a paragraph
+\setcounter{tocdepth}{2}% depth for the table of contents
+\setcounter{secnumdepth}{3}% depth for section numbering, default is 2(subsub)
+%- Set equation, figure, table numbering
+%\numberwithin{equation}{section}% set enumeration level
+%\renewcommand{\theequation}{\thesection\arabic{equation}}% configure the label style
+%\numberwithin{figure}{section}% set enumeration level
+%\renewcommand{\thefigure}{\thesection\arabic{figure}}% configure the label style
+%\numberwithin{table}{section}% set enumeration level
+%\renewcommand{\thetable}{\thesection\arabic{table}}% configure the label style
+%- Set bibliography entry
+\ifartx@bibtex%
+	\setlength{\bibsep}{0.0ex plus 0.2ex minus 0.2ex}% set distance between entries
+\fi
+\ifartx@biber%
+	% \setlength\bibitemsep{0.2\baselineskip}% set distance between entries
+\fi
+\renewcommand*{\bibfont}{\small}% set font size for bibliography
+%-
+%-> Nomenclature item
+%-
+\providecommand{\nomenclatureitem}[3][ ]{%
+	\noindent\makebox[0.15\textwidth][l]{#2}{{#3}\hfill{#1}}\par
+}
+%-
+%-> Macro for adding content link to the table of content and bookmark
+%-
+\providecommand{\intotoc}[2][chapter]{%
+	\cleardoublepage% ensure correct page reference
+	\markboth{\MakeUppercase{#2}}{}% set the leftmark
+	\phantomsection% create link in bookmarks
+	\addcontentsline{toc}{#1}{#2}% add content #2 to toc as #1
+}
+%-
+%-> Page header and footer Style
+%-
+%- Page styles in Latex refers to headers and footers of a document.
+%- These headers/footers typically contain document titles, chapter
+%- or section numbers/names, and page numbers.
+%- Configure fancy style
+\ifartx@myhdr% user defined header and footer style
+	\pagestyle{fancy}%
+	\providecommand{\chaptermark}{}% compatibility for non-book classes
+	\providecommand{\thechapter}{}% compatibility for non-book classes
+	\providecommand{\CTEXthechapter}{\thechapter.}% compatibility for non ctex classes
+	%- reset style of chapter and section mark to actual name
+	\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{#1}}{}}%
+	\renewcommand{\sectionmark}[1]{\markright{\MakeUppercase{#1}}{}}%
+	%- deactivate uppercase effect
+	\renewcommand{\MakeUppercase}[1]{#1}%
+	%- Define different kinds of header and footer for different parts
+	\fancypagestyle{frontmatterstyle}{% style for frontmatter
+		\fancyhf{}% clear fields
+		% \color{gray} \color{black!80}
+		\fancyhead{\zihao{5} \itshape \textcolor{black!70}{\neu@label@headerprefix \hfill  \leftmark}}% structure elements
+		\fancyfoot[CE]{\zihao{5}  -~\thepage~-}% page number
+		\fancyfoot[CO]{\zihao{5}  -~\thepage~-}% page number
+		\renewcommand{\headrulewidth}{0.8pt}% header rule
+		\renewcommand{\footrulewidth}{0pt}% footer rule
+	}
+	\fancypagestyle{mainmatterstyle}{% style for mainmatter
+		\fancyhf{}% clear fields
+		\fancyhead{\zihao{5} \itshape \textcolor{black!70}{\neu@label@headerprefix \hfill \CTEXthechapter\, \leftmark}}% structure elements
+
+		\fancyfoot[CE]{\zihao{5}  -~\thepage~-}% page number
+		\fancyfoot[CO]{\zihao{5}  -~\thepage~-}% page number
+		\renewcommand{\headrulewidth}{0.8pt}% header rule
+		\renewcommand{\footrulewidth}{0pt}% footer rule
+	}
+	\fancypagestyle{backmatterstyle}{% header and footer style for backmatter
+		\fancyhf{}% clear fields
+		\fancyhead{\zihao{5} \itshape  \textcolor{black!70}{\neu@label@headerprefix \hfill \leftmark} }% structure elements
+		\fancyfoot[CE]{\zihao{5}  -~\thepage~-}% page number
+		\fancyfoot[CO]{\zihao{5}  -~\thepage~-}% page number
+		\renewcommand{\headrulewidth}{0.8pt}% header rule
+		\renewcommand{\footrulewidth}{0pt}% footer rule
+	}
+	%- Redefine \frontmatter to include the change
+	\providecommand{\frontmatter}{}% compatibility for non-book classes
+	\let\myfrontmatter\frontmatter%
+	\renewcommand{\frontmatter}{%
+		\myfrontmatter%
+		\pagestyle{frontmatterstyle}%
+	}
+	%- Redefine \mainmatter to include the change
+	\providecommand{\mainmatter}{}% compatibility for non-book classes
+	\let\mymainmatter\mainmatter%
+	\renewcommand{\mainmatter}{%
+		\mymainmatter%
+		\pagestyle{mainmatterstyle}%
+	}
+	%- Redefine \backmatter to include the change
+	\providecommand{\backmatter}{}% compatibility for non-book classes
+	\let\mybackmatter\backmatter%
+	\renewcommand{\backmatter}{%
+		\mybackmatter%
+		\pagestyle{backmatterstyle}%
+	}
+	%- Some Latex commands, like \chapter, use the \thispagestyle command
+	%- to automatically switch to the plain page style, thus ignoring the
+	%- page style currently in effect. To customize such pages you must
+	%- redefine the plain pagestyle. If you want the plain style inherits
+	%- the current style, comment all the lines in plain style definition.
+	\fancypagestyle{plain}{%
+		%\fancyhf{}% clear fields
+		%\renewcommand{\headrulewidth}{0pt}% header rule
+		%\renewcommand{\footrulewidth}{0pt}% footer rule
+	}
+	\fancypagestyle{noheaderstyle}{% header and footer style for no header
+		\fancyhf{}% clear fields
+		\fancyfoot[CE]{\zihao{5}  \thepage}% page number
+		\fancyfoot[CO]{\zihao{5}  \thepage}% page number
+		\renewcommand{\headrulewidth}{0pt}% header rule
+		\renewcommand{\footrulewidth}{0pt}% footer rule
+	}
+\fi
+%-
+%-> Configure header and foot
+%-
+%-
+%-> Configure landscape environment
+%-
+\ifartx@lscape%
+	\fancypagestyle{lscape}{% landscape layout style
+		\fancyhf{}% clear fields
+		\fancyfoot[CE,CO]{%
+			%- textpos: \begin{textblock}{<blockwidth>}[0.5,0.5](<hpos>,<vpos>) text... \end{textblock}
+			%- origin of the absolute coordinate is the top-left corner of the page
+			%- [0.5,0.5] means reference point of the block is the middle
+			\begin{textblock}{0.1}[0.5,0.5](0.85,0.5){\rotatebox{90}{\footnotesize \thepage}}\end{textblock}% position the page number
+		}
+		%- set units of <blockwidth>, <hpos>, and <vpos> arguments by corresponding modules 
+		\setlength{\TPHorizModule}{8.5in}% set to the width of page
+		\setlength{\TPVertModule}{11in}% set to the height of page
+		\renewcommand{\headrulewidth}{0pt}% header rule
+		\renewcommand{\footrulewidth}{0pt}% footer rule
+	}
+\fi
+\ifartx@list% enable enhanced list
+	\definecolor{mygreen}{rgb}{0,0.6,0}
+	\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+	\definecolor{mymauve}{rgb}{0.58,0,0.82}
+	\lstset{%
+		numberbychapter=false,% numbered sequentially or by chapter
+		backgroundcolor=\color{white},% background color;
+		basicstyle=\scriptsize,% font size for code
+		breakatwhitespace=false,% sets if automatic breaks should only happen at whitespace
+		breaklines=true,% sets automatic line breaking
+		captionpos=b,% caption-position to bottom
+		commentstyle=\color{mygreen},% comment style
+		%deletekeywords={...},% delete keywords from the given language
+		frame=single,% adds a frame around the code
+		keepspaces=true,% keeps spaces in text for keeping indentation of code
+		keywordstyle=\color{blue},% keyword style
+		%otherkeywords={*,...},% add more keywords to the set
+		numbers=left,% where to put the line-numbers; possible values are (none, left, right)
+		numbersep=5pt,% how far the line-numbers are from the code
+		numberstyle=\tiny\color{mygray},% the style that is used for the line-numbers
+		rulecolor=\color{black},% if not set, the frame-color may be changed on line-breaks
+		showspaces=false,% show spaces everywhere adding particular underscores;
+		showstringspaces=false,% underline spaces within strings only
+		showtabs=false,% show tabs within strings adding particular underscores
+		stepnumber=2,% the step between two line-numbers. If it's 1, each line will be numbered
+		stringstyle=\color{mymauve},% string literal style
+		tabsize=2,% sets default tabsize to 2 spaces
+		title=\lstname% show the filename of files
+	}
+\fi
+%-
+%-> Page background
+%-
+\ifartx@background%
+	\definecolor{backgroundcolor}{rgb}{0.85,0.85,0.85}%
+	\pagecolor{backgroundcolor}% background color
+\fi
+
+%
+% algorithm setting
+% 
+\let\oldReturn\Return
+\renewcommand{\Return}{\State\oldReturn}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}} % Use Input in the format of Algorithm
+\renewcommand{\algorithmicensure}{\textbf{Output:}} % Use Output in the format of Algorithm
+\renewcommand{\thealgorithm}{\arabic{chapter}.\arabic{algorithm}}
+% \renewcommand{\algorithmcfname}{Alg}% Update algorithm name
+
+% auto-break line for math 
+\makeatletter
+% \def\old@comma{,}
+% \catcode`\,=13
+% \def,{%
+% 		\ifmmode%
+% 			\old@comma\discretionary{}{}{}%
+% 		\else%
+% 			\old@comma%
+% 		\fi%
+% 	}
+\makeatother
+
+% 
+%-
+%-> subfigureB
+%-
+% \makeatletter
+% \renewcommand\thesubfigure{(\alph{subfigure})}
+% \DeclareCaptionLabelFormat{opening}{#2}
+% \captionsetup[subfigure]{labelformat=opening}
+% \makeatother
+%---------------------------------------------------------------------------%
+\endinput
+

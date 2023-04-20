@@ -1,0 +1,52 @@
+% !TEX ROOT = ../Thesis.tex 
+%---------------------------------------------------------------------------%
+%->> 封面信息及生成
+%---------------------------------------------------------------------------%
+%-
+%-> 中文封面信息
+%-
+\category{}%分类号
+\confidential{}% 密级：只有涉密论文才填写
+\UDC{}
+\schoollogo% 校徽
+% \schooltitle{width=1cm}{neu_title}
+\title{东北大学博士学位论文排版打印格式}% 论文中文题目
+\author{张三}% 论文作者
+\advisor{赵四~~教授}% 指导教师：姓名 专业技术职务 工作单位
+\advisorsec{东北大学计算机科学与工程学院}% 指导老师附加信息 或 第二指导老师信息
+\degree{博士}% 学位：学士、硕士、博士
+\degreetype{工学}% 学位类别：理学、工学、工程、医学等
+\major{计算机科学与技术}% 二级学科专业名称
+\institute{计算机科学与工程学院}% 院系名称
+
+\research{网络空间安全}% 研究方向
+\authorno{1810001}% 学号
+\chinesedate{2023~年~4~月}%  封面页脚日期
+\submissiondate{2022~年~12~月}% 论文提交日期
+\oraldefencedate{2023~年~3~月}% 论文答辩日期
+\degreedate{2023~年~4~月}% 学位授予日期
+\chairman{王五}% 答辩委员会主席
+%-
+%-> 英文封面信息
+%-
+\englishtitle{Thesis Template of Northeastern University}% 论文英文题目
+\englishauthor{San Zhang}% 论文作者
+\englishadvisor{Professor Si Zhao}% 指导教师
+\englishdegree{Doctor}% 学位：Bachelor, Master, Doctor。封面格式将根据英文学位名称自动切换，请确保拼写准确无误
+\englishdegreetype{Natural Science}% 学位类别：Philosophy, Natural Science, Engineering, Economics, Agriculture 等
+\englishthesistype{thesis}% 论文类型： thesis, dissertation
+\englishuniversity{Northeastern University}
+\englishmajor{Computer Application Thechnology}% 二级学科专业名称
+\englishinstitute{School of Computer Science and Engineering}% 院系名称
+\englishdate{April 2023}% 毕业日期：春季 April 夏季为June、秋季为September 冬季为December
+%-
+%-> 生成封面
+%-
+\makereviewcover % 生成盲审中文封面
+\makeprintcover %生成打印的中文封面
+\makechinesetitle % 生成中文内容页
+\makeenglishtitle% 生成英文页
+%-
+%-> 作者声明
+%-
+\makedeclaration% 生成声明页
