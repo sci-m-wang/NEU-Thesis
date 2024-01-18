@@ -1,0 +1,53 @@
+% !TEX ROOT = ../Thesis.tex 
+%---------------------------------------------------------------------------%
+%->> 封面信息及生成
+%---------------------------------------------------------------------------%
+%-
+%-> 中文封面信息
+%-
+\category{}%分类号
+\confidential{}% 密级：只有涉密论文才填写
+\UDC{}
+\schoollogo% 校徽
+% \schooltitle{width=1cm}{neu_title}
+\title{Thesis English Title}% 论文中文题目
+\author{XXX}% 论文作者
+\advisor{Professor XXX}% 指导教师：姓名 专业技术职务 工作单位
+\advisorsec{Software College, Northeastern University}% 指导老师附加信息 或 第二指导老师信息
+\degree{Master}% 学位：学士、硕士、博士
+\degreetype{Engineering}% 学位类别：理学、工学、工程、医学等
+\major{Software Engineering}% 二级学科专业名称
+\institute{Software College}% 院系名称
+
+\research{}% 研究方向
+\authorno{}% 学号
+\chinesedate{June 2020}%  封面页脚日期
+\submissiondate{Jun. 2020}% 论文提交日期
+\oraldefencedate{Jun. 2020}% 论文答辩日期
+\degreedate{Jun. 2020}% 学位授予日期
+\chairman{XXX}% 答辩委员会主席
+\reviewer{XXX, XXX, XXX, XXX}
+%-
+%-> 英文封面信息
+%-
+\englishtitle{Thesis English Title}% 论文英文题目
+\englishauthor{XXX}% 论文作者
+\englishadvisor{Professor XXX}% 指导教师
+\englishdegree{Master}% 学位：Bachelor, Master, Doctor。封面格式将根据英文学位名称自动切换，请确保拼写准确无误
+\englishdegreetype{Engineering}% 学位类别：Philosophy, Natural Science, Engineering, Economics, Agriculture 等
+\englishthesistype{thesis}% 论文类型： thesis, dissertation
+\englishuniversity{Northeastern University}
+\englishmajor{Software Engineering}% 二级学科专业名称
+\englishinstitute{Software College}% 院系名称
+\englishdate{June 2020}% 毕业日期：春季 April 夏季为June、秋季为September 冬季为December
+%-
+%-> 生成封面
+%-
+%\makereviewcover % 生成盲审中文封面
+%\makeprintcover %生成打印的中文封面
+\makechinesetitle % 生成中文内容页
+\makeenglishtitle% 生成英文页
+%-
+%-> 作者声明
+%-
+\makedeclaration% 生成声明页
