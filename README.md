@@ -10,12 +10,12 @@ The ease of layout in LaTex is far superior to that of text editing software suc
 ## Contribution
 My capabilities are limited. It takes all of us working together to make the project better. If you find problems with this project as you use it. You can contribute in two ways：
 
-### If you know how to solve these problems.
+### A. If you know how to solve these problems.
 1. [Fork](https://github.com/sci-m-wang/NEU-Thesis/fork) this project.
 2. Modify the corresponding codes to correct them.
 3. [Pull requests](https://github.com/sci-m-wang/NEU-Thesis/pulls).
 
-### If you don't know how to solve these problems.
+### B. If you don't know how to solve these problems.
 - You can just add an [issue](https://github.com/sci-m-wang/NEU-Thesis/issues). Helping us to identify problems is also a very important contribution.
 
 ## Acknowledgment
