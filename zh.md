@@ -11,12 +11,12 @@ LaTex的排版的便利程度远高于Word等文字编辑软件，在有模板�
 ## Contribution
 我个人能力有限，需要我们所有人的共同努力，才能让项目变得更好。如果您在使用本项目时发现问题，可以通过以下两种方式作出贡献：
 
-### 如果你知道如何解决问题
+### A. 如果你知道如何解决问题
 1. [Fork](https://github.com/sci-m-wang/NEU-Thesis/fork)这个项目
 2. 修改对应部分代码
 3. 提交修改代码[Pull requests](https://github.com/sci-m-wang/NEU-Thesis/pulls)
 
-### 如果你不知道如何解决问题
+### B. 如果你不知道如何解决问题
 - 您可以仅提交一个[issue](https://github.com/sci-m-wang/NEU-Thesis/issues)。帮助我们发现问题也是非常重要的贡献！
 
 ## Acknowledgment
