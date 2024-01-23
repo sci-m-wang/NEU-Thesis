@@ -11,7 +11,7 @@ The ease of layout in LaTex is far superior to that of text editing software suc
 My capabilities are limited. It takes all of us working together to make the project better. If you find problems with this project as you use it. You can contribute in two ways：
 
 ### If you know how to solve these problems.
-1. Fork this project.
+1. [Fork](https://github.com/sci-m-wang/NEU-Thesis/fork) this project.
 2. Modify the corresponding codes to correct them.
 3. [Pull requests](https://github.com/sci-m-wang/NEU-Thesis/pulls).
 
