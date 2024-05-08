@@ -146,6 +146,19 @@
 %-> Math packages
 %-
 \RequirePackage{amsmath}% math packages
+\RequirePackage{amssymb}% amssymb packages
+\RequirePackage{dsfont}
+\RequirePackage{bbding}
+\RequirePackage{titletoc}
+\newcommand{\chapterPageNumber}{\normalsize}  % 设置节的页码字体大小
+% 定义无加粗的点线
+\newcommand{\mytitlerule}{
+  \normalfont % 确保使用正常字体样式
+  \titlerule*[0.3pc]{\raisebox{0.6ex}{.}}
+%   \titlerule*[0.3pc]{\raisebox{0.5ex}{.}% 定义点线间距
+}
+% \renewcommand{\thechapter}{\quad\arabic{chapter}\quad}
+
 \ifartx@math% extra math packages
 	\RequirePackage{mathtools,amsfonts}%
 \fi
@@ -281,6 +294,8 @@
 	%\RequirePackage{color}%
 	\RequirePackage[usenames,dvipsnames,table]{xcolor}%
 \fi
+
+
 %-
 %-> Draw graphics directly with TeX commands
 %-
@@ -335,6 +350,7 @@
 	urlcolor=blue,% color of external links
 	bookmarksnumbered=true,% put section numbers in bookmarks
 	bookmarksopenlevel=4,
+	breaklinks=true,
 	%hidelinks% remove link color and border
 }
 \RequirePackage{siunitx}%
@@ -422,7 +438,7 @@
 	}
 	\fancypagestyle{mainmatterstyle}{% style for mainmatter
 		\fancyhf{}% clear fields
-		\fancyhead[R]{\zihao{5} \itshape \textcolor{black!70}{\neu@label@headerprefix \hfill \CTEXthechapter\, \leftmark}}% structure elements
+		\fancyhead[R]{\zihao{5} \itshape \textcolor{black!70}{\neu@label@headerprefix \hfill \CTEXthechapter \leftmark}}% structure elements
 
 		\fancyfoot[CE]{\zihao{5}  -~\thepage~-}% page number
 		\fancyfoot[CO]{\zihao{5}  -~\thepage~-}% page number
@@ -545,7 +561,8 @@
 \renewcommand{\algorithmicensure}{\textbf{Output:}} % Use Output in the format of Algorithm
 \renewcommand{\thealgorithm}{\arabic{chapter}.\arabic{algorithm}}
 % \renewcommand{\algorithmcfname}{Alg}% Update algorithm name
-
+\renewcommand{\theenumi}{[\arabic{enumi}]}
+\renewcommand{\labelenumi}{\theenumi}
 % auto-break line for math 
 \makeatletter
 % \def\old@comma{,}

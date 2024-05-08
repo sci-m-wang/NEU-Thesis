@@ -166,7 +166,8 @@
 		\begin{minipage}[t]{100mm}
 			\parbox[c]{37mm}{\includegraphics[width=35mm, height=10mm]{neu/neu_title}}
 			\parbox[c]{18mm}{\includegraphics[width=16mm, height=16mm]{neu/neu_logo.jpg}}
-			\parbox[c]{35mm}{ \songti \bfseries \zihao{-4}  \makebox[35mm][c]{NORTHEASTERN}  \makebox[35mm][c]{ U N I V E R S I T Y}}
+			% \parbox[c]{35mm}{ \songti \bfseries \zihao{-4}  \makebox[35mm][c]{NORTHEASTERN}  \makebox[35mm][c]{ U N I V E R S I T Y}}
+                \parbox[c]{35mm}{ \textrm \bfseries \zihao{-4}  \makebox[35mm][c]{NORTHEASTERN}  \makebox[35mm][c]{ U N I V E R S I T Y}}
 		\end{minipage}
 	}}
 \def\neu@value@title{}
@@ -258,7 +259,9 @@
 		{\fontsize{54}{\baselineskip}\rmfamily {\neu@label@thesis}}
 
 		\vspace*{\stretch{1}}
-		{\zihao{2} \songti {\neu@label@enthesis}}
+		% {\zihao{2} \songti {\neu@label@enthesis}}
+            {\zihao{2} \textrm{\neu@label@enthesis}}
+    
 
 	\end{center}
 	\begin{flushleft}
@@ -340,7 +343,7 @@
 		\vspace*{6em}
 		\bfseries
 
-		{\zihao{3} 论文题目 \qquad {\neu@value@title}}
+		{\zihao{3} \songti{论文题目} \qquad \songti{\neu@value@title}}
 
 		\linespread{1}
 		\vspace*{8em}
@@ -348,11 +351,11 @@
 		\def\tabcolsep{0em}
 		\def\arraystretch{2}
 		\begin{tabular}{p{6em} l}
-			作 \qquad 者 & \neu@value@author    \\
-			学 \qquad 号 & \neu@value@authorno  \\
-			学 \qquad 院 & \neu@value@institute \\
-			专 \qquad 业 & \neu@value@major     \\
-			指导教师     & \neu@value@advisor   \\
+			\songti{作} \qquad \songti{者} & \songti{\neu@value@author}    \\
+			\songti{学} \qquad \songti{号} & \textrm{\neu@value@authorno}  \\
+			\songti{学} \qquad \songti{院} & \songti{\neu@value@institute} \\
+			\songti{专} \qquad \songti{业} & \songti{\neu@value@major}     \\
+			\songti{指导教师}     & \songti{\neu@value@advisor}   \\
 		\end{tabular}
 
 	\end{flushleft}
@@ -360,7 +363,7 @@
 		\linespread{1}
 		\zihao{3}
 		\vspace*{3em}
-		{\bfseries \neu@value@chinesedate}
+		{\bfseries \textrm{\songti{\neu@value@chinesedate}}}
 		% \vspace*{\stretch{3}}
 	\end{center}
 	\restoregeometry
@@ -399,7 +402,7 @@
 
 		\vspace*{\stretch{1}}
 
-		{\zihao{-2} \sffamily \neu@value@title}
+		{\zihao{-2} \sffamily \neu@value@chinesetitle}
 	\end{center}
 	\begin{flushleft}
 		\linespread{1}
@@ -465,6 +468,8 @@
 %-
 %-> English item commands
 %-
+\def\neu@value@chinesetitle{}
+\newcommand{\chinesetitle}[1]{\def\neu@value@chinesetitle{#1}}
 \def\neu@value@englishtitle{}
 \newcommand{\englishtitle}[1]{\def\neu@value@englishtitle{#1}}
 \def\neu@value@englishauthor{}
@@ -489,7 +494,7 @@
 %-> Redefine English style
 %-
 \newcommand{\makeenglishtitle}{%
-	\cleardoublepage
+	% \cleardoublepage
 	\thispagestyle{empty}
 	\begin{flushleft}
 		\linespread{1}
@@ -506,7 +511,7 @@
 
 		\linespread{1}
 		\zihao{5}
-		\vspace*{6em}
+		\vspace*{3em}
 
 		{\zihao{4} {by} {\neu@value@englishauthor}}
 
@@ -518,7 +523,7 @@
 
 		\linespread{1}
 		\zihao{5}
-		\vspace*{28em}
+		\vspace*{24em}
 		{
 			\linespread{1}
 			\zihao{3}
@@ -655,7 +660,7 @@
 		\begingroup
 		\parindent \z@ \rightskip \@pnumwidth
 		\parfillskip -\@pnumwidth
-		\leavevmode \zihao{3}\sffamily
+		\leavevmode \zihao{3} \rmfamily  %%控制目录标题页码字体
 		\advance\leftskip\@tempdima
 		\hskip -\leftskip
 		#1\nobreak
@@ -670,7 +675,7 @@
 	\ifartx@biber%
 		\printbibliography[title=\bibname]
 	\else
-		\bibliography{Biblio/ref.bib}% bibliography
+		\bibliography{Biblio/ref_thesis}% bibliography
 	\fi
 }
 %---------------------------------------------------------------------------%
