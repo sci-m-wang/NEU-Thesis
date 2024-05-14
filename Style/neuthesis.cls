@@ -556,7 +556,7 @@
 {
 \chapter{\neu@value@declare@create}\chaptermark{\neu@value@declare@create}
 
-\thispagestyle{noheaderstyle}
+% \thispagestyle{noheaderstyle}
 \linespread{1.83}
 \zihao{4}
 {\neu@value@declare@creativity}
@@ -588,10 +588,10 @@
 \vspace*{\stretch{1}}
 }
 \clearpage
-\if@twoside
-	\thispagestyle{empty}
-	\cleardoublepage[empty]
-\fi
+% \if@twoside
+% 	\thispagestyle{empty}
+% 	\cleardoublepage[empty]
+% \fi
 }
 %---------------------------------------------------------------------------%
 %->> New environments
