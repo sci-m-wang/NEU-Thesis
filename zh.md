@@ -1,4 +1,4 @@
-# 东北大学学位论文(Overleaf版)
+# 东北大学学位论文
 |[中文](https://github.com/sci-m-wang/NEU-Thesis/blob/main/zh.md)|[English](https://github.com/sci-m-wang/NEU-Thesis/blob/main/README.md)|
 
 
