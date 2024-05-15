@@ -59,6 +59,30 @@
 % \chapter*{\contentsname}
 \linespread{1.5}% local line space
 \tableofcontents% contents catalog
+{
+\titlecontents{chapter}
+    [1.55cm]        % 调整章标题左侧缩进值
+    {\vspace{-1.2ex}\bf\large}
+    {\contentslabel{3em}}
+    {\hspace*{-3em}} % 无编号项目格式
+    % {{\titlerule*[0.3pc]{\raisebox{0.5ex}{.}}\normalfont\chapterPageNumber\contentspage}}
+    {% 创建一个局部作用域以应用我们的无加粗点线定义
+  \mytitlerule
+  \chapterPageNumber
+  \contentspage % 页码
+  }
+\titlecontents{section}
+    [1.4cm]
+    {\vspace{-1.2ex}\songti\normalsize}
+    {\contentslabel{1.5em}}{}
+    {\titlerule*[0.3pc]{\raisebox{0.5ex}{.}}\contentspage}
+
+\titlecontents{subsection}
+    [2.6cm]{\vspace{-1.2ex}\songti}
+    {\contentslabel{2.5em}}{}
+    {\titlerule*[0.3pc]{\raisebox{0.5ex}{.}}\contentspage}
+
+}
 
 \intotoc{\listfigurename}% add link to contents table and bookmark
 \listoffigures% figures catalog

@@ -260,7 +260,16 @@
 
 		\vspace*{\stretch{1}}
 		% {\zihao{2} \songti {\neu@label@enthesis}}
-            {\zihao{2} \textrm{\neu@label@enthesis}}
+		\neuifstreq{\neu@value@englishdegree}{Bachelor}{
+            {\zihao{2} \textrm{\neu@label@enbacthesis}}
+        }{
+            \neuifstreq{\neu@value@englishdegree}{Master}{
+                {\zihao{2} \textrm{\neu@label@enmasthesis}}
+            }
+            {
+                {\zihao{2} \textrm{\neu@label@enthesis}}
+            }
+        }
     
 
 	\end{center}
@@ -335,7 +344,16 @@
 		{\fontsize{54}{\baselineskip}\rmfamily {\neu@label@thesis}}
 
 		\vspace*{2em}
-		{\zihao{2} \textrm{\neu@label@enthesis}}
+		\neuifstreq{\neu@value@englishdegree}{Bachelor}{
+            {\zihao{2} \textrm{\neu@label@enbacthesis}}
+        }{
+            \neuifstreq{\neu@value@englishdegree}{Master}{
+                {\zihao{2} \textrm{\neu@label@enmasthesis}}
+            }
+            {
+                {\zihao{2} \textrm{\neu@label@enthesis}}
+            }
+        }
 	\end{center}
 	\begin{flushleft}
 		\linespread{1}
