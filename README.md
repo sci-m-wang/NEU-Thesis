@@ -1,4 +1,4 @@
-# Neu Thesis-Overleaf
+# NEU Thesis
 |[中文](https://github.com/sci-m-wang/NEU-Thesis/blob/main/zh.md)|[English](https://github.com/sci-m-wang/NEU-Thesis/blob/main/README.md)|
 
 LaTex version of Northeastern University (Shenyang)'s thesis (common to master's and doctoral degrees), which can be imported directly into [Overleaf](https://www.overleaf.com/). **If you need the English version, you can find it [here](https://github.com/sci-m-wang/NEU-Thesis/tree/main/NEU-Thesis-en).**
