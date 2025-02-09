@@ -693,7 +693,7 @@
 	\ifartx@biber%
 		\printbibliography[title=\bibname]
 	\else
-		\bibliography{Biblio/ref_thesis}% bibliography
+		\bibliography{Biblio/ref}% bibliography
 	\fi
 }
 %---------------------------------------------------------------------------%
