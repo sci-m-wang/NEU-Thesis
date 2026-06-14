@@ -1,0 +1,35 @@
+\chapter{Guideline}\label{chap:guide}
+
+\section{Switching Languages}
+
+The template language is controlled by the document class option in \texttt{Thesis.tex}:
+
+\begin{itemize}
+    \item Chinese thesis: \verb|\documentclass[...,language=chinese]{Style/neuthesis}|
+    \item English thesis: \verb|\documentclass[...,language=english]{Style/neuthesis}|
+\end{itemize}
+
+The option changes fixed labels such as \textit{Table of Contents}, \textit{References}, figure and table names, title-page labels, declaration text, and the default sample chapters. User-written thesis content remains in the corresponding \texttt{Tex} files.
+
+\section{Project Structure}
+
+\begin{itemize}
+    \item \texttt{Thesis.tex}: the main entry file.
+    \item \texttt{Style/neuthesis.cls}: the document class and page-level layout.
+    \item \texttt{Style/neuthesis.cfg}: language-specific labels and heading styles.
+    \item \texttt{Style/artratex.sty}: common packages, citations, captions, headers, and lists.
+    \item \texttt{Tex/Frontpages.tex}: title-page metadata.
+    \item \texttt{Tex/Mainmatter.tex}: chapter inclusion list.
+    \item \texttt{Biblio/ref.bib}: bibliography database.
+    \item \texttt{Img/}: figures used by the thesis.
+\end{itemize}
+
+\section{Compilation}\label{sec:qa}
+
+Use the build script for a full compilation:
+
+\begin{verbatim}
+./build.sh a
+\end{verbatim}
+
+The argument \texttt{a} enables Bib\TeX{}. If references, labels, or table-of-contents entries look stale, run the full compilation again.

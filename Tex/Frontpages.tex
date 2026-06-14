@@ -3,13 +3,44 @@
 %->> 封面信息及生成
 %---------------------------------------------------------------------------%
 %-
-%-> 中文封面信息
+%-> 封面信息
 %-
 \category{}%分类号
 \confidential{}% 密级：只有涉密论文才填写
 \UDC{}
 \schoollogo% 校徽
 % \schooltitle{width=1cm}{neu_title}
+\neuifenglish{%
+\title{Thesis English Title}% thesis title
+\chinesetitle{Thesis English Title}% title page title
+\author{XXX}% author
+\advisor{Professor XXX}% supervisor
+\advisorsec{Software College, Northeastern University}% supervisor affiliation or co-supervisor
+\degree{Master}% degree: Bachelor, Master, Doctor
+\degreetype{Engineering}% degree type
+\major{Software Engineering}% major
+\institute{Software College}% school or institute
+
+\research{}% research area
+\authorno{}% student ID
+\chinesedate{June 2020}% cover date
+\submissiondate{Jun. 2020}% submission date
+\oraldefencedate{Jun. 2020}% defense date
+\degreedate{Jun. 2020}% degree awarding date
+\chairman{XXX}% defense committee chairman
+\reviewer{XXX, XXX, XXX, XXX}% reviewers
+
+\englishtitle{Thesis English Title}% English title
+\englishauthor{XXX}% author
+\englishadvisor{Professor XXX}% supervisor
+\englishdegree{Master}% Bachelor, Master, Doctor. The cover format switches by this value.
+\englishdegreetype{Engineering}% Philosophy, Natural Science, Engineering, Economics, Agriculture, etc.
+\englishthesistype{thesis}% thesis, dissertation
+\englishuniversity{Northeastern University}
+\englishmajor{Software Engineering}% major
+\englishinstitute{Software College}% school or institute
+\englishdate{June 2020}% graduation date: April, June, September, or December
+}{%
 \title{东北大学博士学位论文排版打印格式}% 论文题目
 \chinesetitle{东北大学博士学位论文排版打印格式}% 论文中文题目
 \author{张三}% 论文作者
@@ -27,9 +58,7 @@
 \oraldefencedate{2023~年~3~月}% 论文答辩日期
 \degreedate{2023~年~4~月}% 学位授予日期
 \chairman{王五}% 答辩委员会主席
-%-
-%-> 英文封面信息
-%-
+
 \englishtitle{Thesis Template of Northeastern University}% 论文英文题目
 \englishauthor{San Zhang}% 论文作者
 \englishadvisor{Professor Si Zhao}% 指导教师
@@ -40,13 +69,11 @@
 \englishmajor{Computer Application Thechnology}% 二级学科专业名称
 \englishinstitute{School of Computer Science and Engineering}% 院系名称
 \englishdate{April 2023}% 毕业日期：春季 April 夏季为June、秋季为September 冬季为December
+}%
 %-
 %-> 生成封面
 %-
-\makereviewcover % 生成盲审中文封面
-\makeprintcover %生成打印的中文封面
-\makechinesetitle % 生成中文内容页
-\makeenglishtitle% 生成英文页
+\makeneutitle % 根据 language 选项生成对应封面页
 %-
 %-> 作者声明
 %-

@@ -44,6 +44,16 @@
 	% \newcommand{\isreview}{true}
 }
 %-
+%-> Language
+%-
+\newif\ifneu@english \neu@englishfalse
+\DeclareOption{chinese}{\neu@englishfalse}
+\DeclareOption{zh}{\neu@englishfalse}
+\DeclareOption{language=chinese}{\neu@englishfalse}
+\DeclareOption{english}{\neu@englishtrue}
+\DeclareOption{en}{\neu@englishtrue}
+\DeclareOption{language=english}{\neu@englishtrue}
+%-
 %-> Draft version info
 %-
 \newif\ifneu@versioninfo \neu@versioninfofalse
@@ -75,6 +85,8 @@
 \RequirePackage{etoolbox}% a toolbox of programming facilities
 \newcommand{\neuifstreq}{\expandafter\ifstrequal\expandafter}% expansion control
 \newcommand{\neuifstrbk}{\expandafter\ifblank\expandafter}% expansion control
+\newcommand{\neuifenglish}[2]{\ifneu@english #1\else #2\fi}
+\newcommand{\neuifchinese}[2]{\ifneu@english #2\else #1\fi}
 \RequirePackage{ragged2e}
 %---------------------------------------------------------------------------%
 %->> Load class configuration
@@ -420,7 +432,11 @@
 
 		\vspace*{\stretch{1}}
 
-		{\zihao{-2} \sffamily \neu@value@chinesetitle}
+		\ifneu@english
+			{\zihao{2} \sffamily\bfseries \neu@value@title}
+		\else
+			{\zihao{-2} \sffamily \neu@value@chinesetitle}
+		\fi
 	\end{center}
 	\begin{flushleft}
 		\linespread{1}
@@ -432,16 +448,31 @@
 		\rmfamily
 		\def\tabcolsep{1pt}
 		\def\arraystretch{1.2}
-		\begin{tabular}{llll}
-			\neu@label@author         & \multicolumn{3}{l}{\neu@value@author}                                                               \\
-			\neu@label@authorno       & \multicolumn{3}{l}{\neu@value@authorno}                                                             \\
-			\neu@label@advisor        & \multicolumn{3}{l}{\neu@value@advisor}                                                              \\
-			                          & \multicolumn{3}{l}{\neu@value@advisorsec}                                                           \\
-			\neu@label@degree         & \neu@value@degree                         & \neu@label@degreetype      & \neu@value@degreetype      \\
-			\neu@label@major          & \neu@value@major                                                                                    \\
-			\neu@label@submissiondate & \neu@value@submissiondate                 & \neu@label@oraldefencedate & \neu@value@oraldefencedate \\
-			\neu@label@degreedate     & \neu@value@degreedate                     & \neu@label@chairman        & \neu@value@chairman        \\
-		\end{tabular}
+		\ifneu@english
+			\begin{tabular}{llll}
+				\neu@label@author         & \multicolumn{3}{l}{\neu@value@author}                                                               \\
+				\neu@label@advisor        & \multicolumn{3}{l}{\neu@value@advisor}                                                              \\
+				                          & \multicolumn{3}{l}{\neu@value@advisorsec}                                                           \\
+				\neu@label@degree         & \multicolumn{3}{l}{\neu@value@degree}                                                              \\
+				\neu@label@degreetype     & \neu@value@degreetype                   &                              &                         \\
+				\neu@label@major          & \multicolumn{3}{l}{\neu@value@major}                                                               \\
+				\neu@label@submissiondate & \neu@value@submissiondate                & \neu@label@oraldefencedate  & \neu@value@oraldefencedate \\
+				\neu@label@degreedate     & \multicolumn{3}{l}{\neu@value@degreedate}                                                          \\
+				\neu@label@chairman       & \multicolumn{3}{l}{\neu@value@chairman}                                                            \\
+				\neu@label@reviewer       & \multicolumn{3}{l}{\neu@value@reviewer}                                                            \\
+			\end{tabular}
+		\else
+			\begin{tabular}{llll}
+				\neu@label@author         & \multicolumn{3}{l}{\neu@value@author}                                                               \\
+				\neu@label@authorno       & \multicolumn{3}{l}{\neu@value@authorno}                                                             \\
+				\neu@label@advisor        & \multicolumn{3}{l}{\neu@value@advisor}                                                              \\
+				                          & \multicolumn{3}{l}{\neu@value@advisorsec}                                                           \\
+				\neu@label@degree         & \neu@value@degree                         & \neu@label@degreetype      & \neu@value@degreetype      \\
+				\neu@label@major          & \neu@value@major                                                                                    \\
+				\neu@label@submissiondate & \neu@value@submissiondate                 & \neu@label@oraldefencedate & \neu@value@oraldefencedate \\
+				\neu@label@degreedate     & \neu@value@degreedate                     & \neu@label@chairman        & \neu@value@chairman        \\
+			\end{tabular}
+		\fi
 		\linespread{1}
 		\zihao{5}
 		\vspace*{\stretch{3}}
@@ -449,7 +480,7 @@
 
 	\begin{center}
 		\linespread{1}
-		\zihao{4}
+		\ifneu@english\zihao{3}\bfseries\else\zihao{4}\fi
 		{\neu@label@university}
 
 		% \vspace*{\stretch{1}}
@@ -563,6 +594,17 @@
 		\cleardoublepage[empty]
 	\fi
 }
+\newcommand{\makeneutitle}{%
+	\ifneu@english
+		\makechinesetitle
+		\makeenglishtitle
+	\else
+		\makereviewcover
+		\makeprintcover
+		\makechinesetitle
+		\makeenglishtitle
+	\fi
+}
 %---------------------------------------------------------------------------%
 %->> Author's declaration
 %---------------------------------------------------------------------------%
@@ -574,7 +616,7 @@
 {
 \chapter{\neu@value@declare@create}\chaptermark{\neu@value@declare@create}
 
-% \thispagestyle{noheaderstyle}
+\ifneu@english\thispagestyle{noheaderstyle}\fi
 \linespread{1.83}
 \zihao{4}
 {\neu@value@declare@creativity}
@@ -583,9 +625,16 @@
 
 {\hfill{} {\neu@value@declare@d \hspace*{6em}}}
 
-\begin{center}
-	{\linespread{1.5} \zihao{2}\sffamily \neu@value@declare@right}
-\end{center}
+\ifneu@english
+	\cleardoublepage
+	\thispagestyle{empty}
+	\chapter{\neu@value@declare@right}\chaptermark{\neu@value@declare@right}
+	\thispagestyle{noheaderstyle}
+\else
+	\begin{center}
+		{\linespread{1.5} \zihao{2}\sffamily \neu@value@declare@right}
+	\end{center}
+\fi
 
 {\neu@value@declare@rights}
 
@@ -594,22 +643,42 @@
 {\neu@value@declare@rule}
 \vspace*{1em}
 
-{半年 \;  \scalebox{1.5}{\(\square\)} \qquad 一年  \;   \scalebox{1.5}{\(\square\)} \qquad 一年半  \; \scalebox{1.5}{\(\square\)} \qquad 两年 \; \scalebox{1.5}{\(\square\)}}
+\ifneu@english
+	{Half a year after getting the degree \; \scalebox{1.5}{\(\square\)}}
 
-\vspace*{1em}
+	{A year after getting the degree \; \scalebox{1.5}{\(\square\)}}
 
-{\noindent{\neu@value@declare@s \hspace*{10em} \neu@value@declare@t \hspace*{9em}}}
+	{A year and a half after getting the degree \; \scalebox{1.5}{\(\square\)}}
+
+	{Two years after getting the degree \; \scalebox{1.5}{\(\square\)}}
+\else
+	{半年 \;  \scalebox{1.5}{\(\square\)} \qquad 一年  \;   \scalebox{1.5}{\(\square\)} \qquad 一年半  \; \scalebox{1.5}{\(\square\)} \qquad 两年 \; \scalebox{1.5}{\(\square\)}}
+\fi
+
+\ifneu@english\vspace*{6em}\else\vspace*{1em}\fi
+
+\ifneu@english
+	{\noindent{\neu@value@declare@s \hspace*{7em} \neu@value@declare@t \hspace*{9em}}}
+\else
+	{\noindent{\neu@value@declare@s \hspace*{10em} \neu@value@declare@t \hspace*{9em}}}
+\fi
 
 
-{\noindent{\hspace*{4em}\neu@value@declare@d \hspace*{10em} \neu@value@declare@d \hspace*{9em}}}
+\ifneu@english
+	{\noindent{\neu@value@declare@d \hspace*{13.9em} \neu@value@declare@d \hspace*{9em}}}
+\else
+	{\noindent{\hspace*{4em}\neu@value@declare@d \hspace*{10em} \neu@value@declare@d \hspace*{9em}}}
+\fi
 
 \vspace*{\stretch{1}}
 }
 \clearpage
-% \if@twoside
-% 	\thispagestyle{empty}
-% 	\cleardoublepage[empty]
-% \fi
+\ifneu@english
+	\if@twoside
+		\thispagestyle{empty}
+		\cleardoublepage[empty]
+	\fi
+\fi
 }
 %---------------------------------------------------------------------------%
 %->> New environments
@@ -678,7 +747,7 @@
 		\begingroup
 		\parindent \z@ \rightskip \@pnumwidth
 		\parfillskip -\@pnumwidth
-		\leavevmode \zihao{3} \rmfamily  %%控制目录标题页码字体
+		\ifneu@english\leavevmode \zihao{3}\sffamily\else\leavevmode \zihao{3} \rmfamily\fi  %%控制目录标题页码字体
 		\advance\leftskip\@tempdima
 		\hskip -\leftskip
 		#1\nobreak
@@ -708,4 +777,3 @@
 	\fi
 }
 \endinput
-

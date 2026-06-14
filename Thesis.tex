@@ -11,9 +11,10 @@
 %---------------------------------------------------------------------------%
 %->> Document class declaration
 %---------------------------------------------------------------------------%
-\documentclass[printcopy,fontset=windows]{Style/neuthesis}%
+\documentclass[printcopy,fontset=windows,language=chinese]{Style/neuthesis}%
 %- Multiple optional arguments:
 %- [<singlesided|doublesided|printcopy>]% set one or two sided eprint or print
+%- [language=<chinese|english>]% switch template labels, covers and sample content language
 %- [draftversion]% show draft version information
 %- [fontset=<fandol|windows|mac|adobe>]% specify font set to replace automatic detection
 %- [scheme=plain]% thesis writing of international students
@@ -59,6 +60,7 @@
 % \chapter*{\contentsname}
 \linespread{1.5}% local line space
 \tableofcontents% contents catalog
+\neuifchinese{%
 {
 \titlecontents{chapter}
     [1.55cm]        % 调整章标题左侧缩进值
@@ -83,6 +85,7 @@
     {\titlerule*[0.3pc]{\raisebox{0.5ex}{.}}\contentspage}
 
 }
+}{}%
 
 \intotoc{\listfigurename}% add link to contents table and bookmark
 \listoffigures% figures catalog
@@ -114,4 +117,3 @@
 % \showthe\artxfontset
 \end{document}
 %---------------------------------------------------------------------------%
-

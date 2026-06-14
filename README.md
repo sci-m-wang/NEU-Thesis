@@ -1,7 +1,18 @@
 # NEU Thesis
 |[中文](https://github.com/sci-m-wang/NEU-Thesis/blob/main/zh.md)|[English](https://github.com/sci-m-wang/NEU-Thesis/blob/main/README.md)|
 
-LaTex version of Northeastern University (Shenyang)'s thesis (common to master's and doctoral degrees), which can be imported directly into [Overleaf](https://www.overleaf.com/). **If you need the English version, you can find it [here](https://github.com/sci-m-wang/NEU-Thesis/tree/main/NEU-Thesis-en).**
+LaTex version of Northeastern University (Shenyang)'s thesis (common to master's and doctoral degrees), which can be imported directly into [Overleaf](https://www.overleaf.com/). Chinese and English theses now share one template and can be switched in `Thesis.tex`.
+
+## Language switch
+
+Set the `language` option in `Thesis.tex`:
+
+```tex
+\documentclass[printcopy,fontset=windows,language=chinese]{Style/neuthesis}
+\documentclass[printcopy,fontset=windows,language=english]{Style/neuthesis}
+```
+
+This switch controls fixed labels, title pages, declarations, table/list names, and the default sample chapters.
 
 If this template has been helpful to you, a **star** would be greatly appreciated.
 

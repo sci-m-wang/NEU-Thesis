@@ -1,0 +1,66 @@
+\chapter{Templates}\label{chap:format}
+
+\section{Main Body}
+
+The main body of a thesis is usually organized into chapters, sections, subsections, and subsubsections. The English mode uses English fixed labels and chapter names while keeping the same page geometry and thesis structure.
+
+\section{Figures}
+
+Figures are placed in the \texttt{Img} directory and referenced by file name. Figure~\ref{fig:english-sample} shows a simple example.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.40\textwidth]{tc_q_criteria}
+    \bicaption{Q判据等值面图。}{Isocontour of Q criteria.}
+    \label{fig:english-sample}
+\end{figure}
+
+\section{Tables}
+
+Table~\ref{tab:english-sample} gives a minimal table example.
+
+\begin{table}[!htbp]
+    \bicaption{样表示例。}{A sample table.}
+    \centering
+    \footnotesize
+    \begin{tabular}{lccc}
+        \hline
+        Item & A & B & C \\
+        \hline
+        Row 1 & 1 & 2 & 3 \\
+        Row 2 & 4 & 5 & 6 \\
+        \hline
+    \end{tabular}
+    \label{tab:english-sample}
+\end{table}
+
+\section{Equations}
+
+Equations are numbered by chapter. For example,
+
+\begin{equation}
+    E = mc^2 .
+\end{equation}
+
+\section{Algorithms}
+
+Algorithm~\ref{alg:english-euclid} demonstrates the algorithm environment.
+
+\begin{algorithm}[!htbp]
+    \small
+    \caption{Euclid's algorithm}\label{alg:english-euclid}
+    \begin{algorithmic}[1]
+        \Procedure{Euclid}{$a,b$}
+        \While{$b \ne 0$}
+            \State $r \gets a \bmod b$
+            \State $a \gets b$
+            \State $b \gets r$
+        \EndWhile
+        \State \Return $a$
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\section{References}
+
+Citations are written with commands such as \verb|\cite{lamport1986document}|. For example, \LaTeX{} is introduced in \cite{lamport1986document}.

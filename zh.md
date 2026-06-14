@@ -2,7 +2,18 @@
 |[中文](https://github.com/sci-m-wang/NEU-Thesis/blob/main/zh.md)|[English](https://github.com/sci-m-wang/NEU-Thesis/blob/main/README.md)|
 
 
-东北大学(沈阳)学位论文LaTex版(硕博士通用)，可直接导入[Overleaf](https://www.overleaf.com/)。**如果你需要英文版，可以在[这里](https://github.com/sci-m-wang/NEU-Thesis/tree/main/NEU-Thesis-en)找到。**
+东北大学(沈阳)学位论文LaTex版(硕博士通用)，可直接导入[Overleaf](https://www.overleaf.com/)。现在中英文共用同一套模板，通过 `Thesis.tex` 中的 `language` 选项切换。
+
+## 中英文切换
+
+在 `Thesis.tex` 中设置 `language` 选项：
+
+```tex
+\documentclass[printcopy,fontset=windows,language=chinese]{Style/neuthesis}
+\documentclass[printcopy,fontset=windows,language=english]{Style/neuthesis}
+```
+
+该选项会切换固定标签、封面、声明页、目录/图表/参考文献名称，以及默认示例正文。
 
 如果这个模板对您有帮助的话，非常希望得到您的**小星星**。
 
