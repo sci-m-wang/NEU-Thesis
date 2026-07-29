@@ -594,7 +594,19 @@
 		\cleardoublepage[empty]
 	\fi
 }
+\newcommand{\neu@setheaderprefix}{%
+	\neuifstreq{\neu@value@englishdegree}{Bachelor}{%
+		\def\neu@label@headerprefix{\neu@label@headeruniv\neu@label@headersep\neu@label@bacthesis}%
+	}{%
+		\neuifstreq{\neu@value@englishdegree}{Master}{%
+			\def\neu@label@headerprefix{\neu@label@headeruniv\neu@label@headersep\neu@label@masthesis}%
+		}{%
+			\def\neu@label@headerprefix{\neu@label@headeruniv\neu@label@headersep\neu@label@docthesis}%
+		}%
+	}%
+}
 \newcommand{\makeneutitle}{%
+	\neu@setheaderprefix% 根据学位（学士/硕士/博士）自动生成页眉前缀
 	\ifneu@english
 		\makechinesetitle
 		\makeenglishtitle
