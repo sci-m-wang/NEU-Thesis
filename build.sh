@@ -19,6 +19,7 @@ fi
 
 
 Tmp="Tmp"
+mkdir -p "$Tmp"
 
 
 $TexCompiler --output-directory=$Tmp $FileName || exit
