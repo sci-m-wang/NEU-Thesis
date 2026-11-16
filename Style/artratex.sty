@@ -427,6 +427,8 @@
 	%- deactivate uppercase effect
 	\renewcommand{\MakeUppercase}[1]{#1}%
 	%- Define different kinds of header and footer for different parts
+	%- page number: same size as the body text, decorated with one-dash lines, e.g. －3－
+	\newcommand{\neu@pagemark}{\normalfont\normalsize －\thepage{}－}%
 	\fancypagestyle{frontmatterstyle}{% style for frontmatter
 		\fancyhf{}% clear fields
 		% \color{gray} \color{black!80}
@@ -435,8 +437,8 @@
 		\else
 			\fancyhead{\zihao{5} \kaishu \textcolor{black!70}{\neu@label@headerprefix \hfill  \leftmark}}%
 		\fi
-		\fancyfoot[CE]{\normalfont\normalsize -~\thepage~-}% match body size
-		\fancyfoot[CO]{\normalfont\normalsize -~\thepage~-}% match body size
+		\fancyfoot[CE]{\neu@pagemark}% page number
+		\fancyfoot[CO]{\neu@pagemark}% page number
 		\renewcommand{\headrulewidth}{0.8pt}% header rule
 		\renewcommand{\footrulewidth}{0pt}% footer rule
 	}
@@ -448,8 +450,8 @@
 			\fancyhead[R]{\zihao{5} \itshape \textcolor{black!70}{\neu@label@headerprefix \hfill \CTEXthechapter \leftmark}}%
 		\fi
 
-		\fancyfoot[CE]{\normalfont\normalsize -~\thepage~-}% match body size
-		\fancyfoot[CO]{\normalfont\normalsize -~\thepage~-}% match body size
+		\fancyfoot[CE]{\neu@pagemark}% page number
+		\fancyfoot[CO]{\neu@pagemark}% page number
 		\renewcommand{\headrulewidth}{0.8pt}% header rule
 		\renewcommand{\footrulewidth}{0pt}% footer rule
 	}
@@ -460,8 +462,8 @@
 		\else
 			\fancyhead{\zihao{5} \itshape  \textcolor{black!70}{\neu@label@headerprefix \hfill \leftmark} }%
 		\fi
-		\fancyfoot[CE]{\normalfont\normalsize -~\thepage~-}% match body size
-		\fancyfoot[CO]{\normalfont\normalsize -~\thepage~-}% match body size
+		\fancyfoot[CE]{\neu@pagemark}% page number
+		\fancyfoot[CO]{\neu@pagemark}% page number
 		\renewcommand{\headrulewidth}{0.8pt}% header rule
 		\renewcommand{\footrulewidth}{0pt}% footer rule
 	}
@@ -498,8 +500,8 @@
 	}
 	\fancypagestyle{noheaderstyle}{% header and footer style for no header
 		\fancyhf{}% clear fields
-		\fancyfoot[CE]{\normalfont\normalsize \thepage}% match body size
-		\fancyfoot[CO]{\normalfont\normalsize \thepage}% match body size
+		\fancyfoot[CE]{\neu@pagemark}% page number
+		\fancyfoot[CO]{\neu@pagemark}% page number
 		\renewcommand{\headrulewidth}{0pt}% header rule
 		\renewcommand{\footrulewidth}{0pt}% footer rule
 	}

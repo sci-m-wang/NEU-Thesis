@@ -16,15 +16,28 @@ This switch controls fixed labels, title pages, declarations, table/list names, 
 
 ## Page layout and running headers
 
-With the default `geometry` setting enabled, the body text area is **160mm × 247mm**, as specified in the formatting guide. Page numbers use the normal body font size. Roman front-matter numbering and Arabic main-matter numbering are unchanged.
+The layout follows the university requirements: the graduate format of June 2026 for master's and doctoral theses, and the undergraduate thesis format for bachelor's theses.
 
-The default `headerstyle=legacy` preserves the university/degree prefix on the left, the chapter title on the right, and automatic degree-based prefix selection. To use centered chapter headers instead, select:
+- The text area is **160mm × 247mm** (excluding the header and page-number lines), i.e. 25mm margins.
+- Page numbers use the body font size, are centered at the bottom and decorated with one-dash lines, e.g. `－3－`. Front matter uses Roman numerals and the main text starts at Arabic 1.
+- The running header starts at the abstract, in 5-point KaiTi with a single rule. The declaration pages have no header.
+- The Chinese and English title pages use 30mm side margins as in the university sample.
+
+The header layout is selected by the `headerstyle` class option, which defaults to `auto` and follows the degree:
+
+| Degree | Header |
+| --- | --- |
+| Doctor, Master | chapter number and title, centered (2026 graduate format) |
+| Bachelor | university prefix on the left, chapter number and title on the right |
+
+A single layout can also be forced for every degree. `legacy` is the left/right layout (the pre-2026 graduate format) with the degree-based prefix:
 
 ```tex
 \documentclass[printcopy,fontset=windows,language=english,headerstyle=centered]{Style/neuthesis}
+\documentclass[printcopy,fontset=windows,language=english,headerstyle=legacy]{Style/neuthesis}
 ```
 
-Centered front/back-matter headers display only the title, without a main-matter chapter number. `headerstyle` controls only running-header layout; it does not certify full compliance with a particular university template revision. Titles, the contents, declarations, and blank pages still need to be checked against the applicable requirements.
+Centered front/back-matter headers display only the title, without a main-matter chapter number.
 
 ## Local build
 
