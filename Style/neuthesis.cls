@@ -607,15 +607,20 @@
 		\cleardoublepage[empty]
 	\fi
 }
+%- title of the "academic achievements" chapter in Tex/Backmatter.tex; the label is chosen by degree in \neu@setheaderprefix
+\newcommand{\neuachievementstitle}{\neu@label@achievements}
 \newcommand{\neu@setheaderprefix}{%
 	\neuifstreq{\neu@value@englishdegree}{Bachelor}{%
 		\let\neu@label@headerprefix\neu@label@headerbac%
+		\let\neu@label@achievements\neu@label@achievementsmas%
 		\ifneu@headerauto\neu@centeredheaderfalse\fi%
 	}{%
 		\neuifstreq{\neu@value@englishdegree}{Master}{%
 			\def\neu@label@headerprefix{\neu@label@headeruniv\neu@label@headersep\neu@label@masthesis}%
+			\let\neu@label@achievements\neu@label@achievementsmas%
 		}{%
 			\def\neu@label@headerprefix{\neu@label@headeruniv\neu@label@headersep\neu@label@docthesis}%
+			\let\neu@label@achievements\neu@label@achievementsdoc%
 		}%
 		\ifneu@headerauto\neu@centeredheadertrue\fi%
 	}%
