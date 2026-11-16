@@ -14,6 +14,22 @@ Set the `language` option in `Thesis.tex`:
 
 This switch controls fixed labels, title pages, declarations, table/list names, and the default sample chapters.
 
+## Page layout and running headers
+
+With the default `geometry` setting enabled, the body text area is **160mm × 247mm**, as specified in the formatting guide. Page numbers use the normal body font size. Roman front-matter numbering and Arabic main-matter numbering are unchanged.
+
+The default `headerstyle=legacy` preserves the university/degree prefix on the left, the chapter title on the right, and automatic degree-based prefix selection. To use centered chapter headers instead, select:
+
+```tex
+\documentclass[printcopy,fontset=windows,language=english,headerstyle=centered]{Style/neuthesis}
+```
+
+Centered front/back-matter headers display only the title, without a main-matter chapter number. `headerstyle` controls only running-header layout; it does not certify full compliance with a particular university template revision. Titles, the contents, declarations, and blank pages still need to be checked against the applicable requirements.
+
+## Local build
+
+With XeLaTeX, BibTeX, and the selected fonts installed, run `bash build.sh a` from the repository root. The script creates `Tmp/` automatically and writes `Tmp/Thesis.pdf`. Run `bash tests/build-smoke.sh` to test fresh/repeated builds and custom document names without requiring TeX or fonts.
+
 If this template has been helpful to you, a **star** would be greatly appreciated.
 
 The ease of layout in LaTex is far superior to that of text editing software such as Word, and the required formatting and layout can be achieved easily and without error when templates are available. However, LaTex is cumbersome in terms of template design and environment configuration. There are now several well-designed templates available and there is an online Overleaf platform that greatly simplifies getting started with LaTex and improves research efficiency. However, I have found that these two templates give some errors when imported into Overleaf and are not directly usable. I have made changes and added fonts to make this template directly usable by importing it into Overleaf, which I hope will provide convenience for everyone.

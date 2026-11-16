@@ -54,6 +54,12 @@
 \DeclareOption{en}{\neu@englishtrue}
 \DeclareOption{language=english}{\neu@englishtrue}
 %-
+%-> Running header layout (legacy remains the default)
+%-
+\newif\ifneu@centeredheader \neu@centeredheaderfalse
+\DeclareOption{headerstyle=legacy}{\neu@centeredheaderfalse}
+\DeclareOption{headerstyle=centered}{\neu@centeredheadertrue}
+%-
 %-> Draft version info
 %-
 \newif\ifneu@versioninfo \neu@versioninfofalse

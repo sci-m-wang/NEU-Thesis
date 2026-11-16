@@ -373,7 +373,7 @@
 %-> Layout, space, and style
 %-
 \ifartx@geometry% enable geometry to redefine page layout
-	\geometry{paper=a4paper,left=31.7mm,right=31.7mm,top=25.4mm,bottom=25.4mm}%
+	\geometry{paper=a4paper,textwidth=160mm,textheight=247mm,centering}%
 \fi
 \linespread{1.5}% 1.5 for "one and a half" line spacing, and 2.0 for "double" line spacing
 %\setlength{\parskip}{0.5ex plus 0.25ex minus 0.25ex}% skip space a paragraph
@@ -430,26 +430,38 @@
 	\fancypagestyle{frontmatterstyle}{% style for frontmatter
 		\fancyhf{}% clear fields
 		% \color{gray} \color{black!80}
-		\fancyhead{\zihao{5} \kaishu \textcolor{black!70}{\neu@label@headerprefix \hfill  \leftmark}}% structure elements
-		\fancyfoot[CE]{\zihao{5}  -~\thepage~-}% page number
-		\fancyfoot[CO]{\zihao{5}  -~\thepage~-}% page number
+		\ifneu@centeredheader
+			\fancyhead[C]{\normalfont\zihao{5}\kaishu\nouppercase{\leftmark}}%
+		\else
+			\fancyhead{\zihao{5} \kaishu \textcolor{black!70}{\neu@label@headerprefix \hfill  \leftmark}}%
+		\fi
+		\fancyfoot[CE]{\normalfont\normalsize -~\thepage~-}% match body size
+		\fancyfoot[CO]{\normalfont\normalsize -~\thepage~-}% match body size
 		\renewcommand{\headrulewidth}{0.8pt}% header rule
 		\renewcommand{\footrulewidth}{0pt}% footer rule
 	}
 	\fancypagestyle{mainmatterstyle}{% style for mainmatter
 		\fancyhf{}% clear fields
-		\fancyhead[R]{\zihao{5} \itshape \textcolor{black!70}{\neu@label@headerprefix \hfill \CTEXthechapter \leftmark}}% structure elements
+		\ifneu@centeredheader
+			\fancyhead[C]{\normalfont\zihao{5}\kaishu\nouppercase{\CTEXthechapter\quad\leftmark}}%
+		\else
+			\fancyhead[R]{\zihao{5} \itshape \textcolor{black!70}{\neu@label@headerprefix \hfill \CTEXthechapter \leftmark}}%
+		\fi
 
-		\fancyfoot[CE]{\zihao{5}  -~\thepage~-}% page number
-		\fancyfoot[CO]{\zihao{5}  -~\thepage~-}% page number
+		\fancyfoot[CE]{\normalfont\normalsize -~\thepage~-}% match body size
+		\fancyfoot[CO]{\normalfont\normalsize -~\thepage~-}% match body size
 		\renewcommand{\headrulewidth}{0.8pt}% header rule
 		\renewcommand{\footrulewidth}{0pt}% footer rule
 	}
 	\fancypagestyle{backmatterstyle}{% header and footer style for backmatter
 		\fancyhf{}% clear fields
-		\fancyhead{\zihao{5} \itshape  \textcolor{black!70}{\neu@label@headerprefix \hfill \leftmark} }% structure elements
-		\fancyfoot[CE]{\zihao{5}  -~\thepage~-}% page number
-		\fancyfoot[CO]{\zihao{5}  -~\thepage~-}% page number
+		\ifneu@centeredheader
+			\fancyhead[C]{\normalfont\zihao{5}\kaishu\nouppercase{\leftmark}}%
+		\else
+			\fancyhead{\zihao{5} \itshape  \textcolor{black!70}{\neu@label@headerprefix \hfill \leftmark} }%
+		\fi
+		\fancyfoot[CE]{\normalfont\normalsize -~\thepage~-}% match body size
+		\fancyfoot[CO]{\normalfont\normalsize -~\thepage~-}% match body size
 		\renewcommand{\headrulewidth}{0.8pt}% header rule
 		\renewcommand{\footrulewidth}{0pt}% footer rule
 	}
@@ -486,8 +498,8 @@
 	}
 	\fancypagestyle{noheaderstyle}{% header and footer style for no header
 		\fancyhf{}% clear fields
-		\fancyfoot[CE]{\zihao{5}  \thepage}% page number
-		\fancyfoot[CO]{\zihao{5}  \thepage}% page number
+		\fancyfoot[CE]{\normalfont\normalsize \thepage}% match body size
+		\fancyfoot[CO]{\normalfont\normalsize \thepage}% match body size
 		\renewcommand{\headrulewidth}{0pt}% header rule
 		\renewcommand{\footrulewidth}{0pt}% footer rule
 	}
