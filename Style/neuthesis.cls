@@ -54,6 +54,17 @@
 \DeclareOption{en}{\neu@englishtrue}
 \DeclareOption{language=english}{\neu@englishtrue}
 %-
+%-> Running header layout
+%- auto (default): master/doctor use the centered layout of the 2026 graduate format,
+%-                 bachelor uses the left/right layout of the undergraduate format
+%- centered / legacy: force one layout for every degree
+%-
+\newif\ifneu@centeredheader \neu@centeredheadertrue
+\newif\ifneu@headerauto \neu@headerautotrue
+\DeclareOption{headerstyle=auto}{\neu@headerautotrue}
+\DeclareOption{headerstyle=legacy}{\neu@headerautofalse\neu@centeredheaderfalse}
+\DeclareOption{headerstyle=centered}{\neu@headerautofalse\neu@centeredheadertrue}
+%-
 %-> Draft version info
 %-
 \newif\ifneu@versioninfo \neu@versioninfofalse
@@ -412,7 +423,7 @@
 	\def\neu@label@major{\neu@label@othermajor}
 	\cleardoublepage
 	\thispagestyle{empty}
-	% \newgeometry{top=25.4mm, bottom=25.4mm, left=30mm, right=30mm}
+	\newgeometry{top=25.4mm, bottom=25.4mm, left=30mm, right=30mm}% title page layout follows the school sample
 	\begin{center}
 		\linespread{1.5}
 		\zihao{4}
@@ -490,7 +501,7 @@
 		{\neu@value@chinesedate}
 		\vspace*{\stretch{3}}
 	\end{center}
-	% \restoregeometry
+	\restoregeometry
 	\clearpage
 	\if@twoside
 		\thispagestyle{empty}
@@ -545,6 +556,7 @@
 \newcommand{\makeenglishtitle}{%
 	% \cleardoublepage
 	\thispagestyle{empty}
+	\newgeometry{top=25.4mm, bottom=25.4mm, left=30mm, right=30mm}% same layout as the Chinese title page
 	\begin{flushleft}
 		\linespread{1}
 		\zihao{4}
@@ -588,22 +600,32 @@
 		}
 
 	\end{center}
+	\restoregeometry
 	\clearpage
 	\if@twoside
 		\thispagestyle{empty}
 		\cleardoublepage[empty]
 	\fi
 }
+%- title of the "academic achievements" chapter in Tex/Backmatter.tex; the label is chosen by degree in \neu@setheaderprefix
+\newcommand{\neuachievementstitle}{\neu@label@achievements}
 \newcommand{\neu@setheaderprefix}{%
 	\neuifstreq{\neu@value@englishdegree}{Bachelor}{%
-		\def\neu@label@headerprefix{\neu@label@headeruniv\neu@label@headersep\neu@label@bacthesis}%
+		\let\neu@label@headerprefix\neu@label@headerbac%
+		\let\neu@label@achievements\neu@label@achievementsmas%
+		\ifneu@headerauto\neu@centeredheaderfalse\fi%
 	}{%
 		\neuifstreq{\neu@value@englishdegree}{Master}{%
 			\def\neu@label@headerprefix{\neu@label@headeruniv\neu@label@headersep\neu@label@masthesis}%
+			\let\neu@label@achievements\neu@label@achievementsmas%
 		}{%
 			\def\neu@label@headerprefix{\neu@label@headeruniv\neu@label@headersep\neu@label@docthesis}%
+			\let\neu@label@achievements\neu@label@achievementsdoc%
 		}%
+		\ifneu@headerauto\neu@centeredheadertrue\fi%
 	}%
+	%- \frontmatter runs before the degree is known; apply the chosen layout to the front matter style
+	\@ifundefined{ps@frontmatterstyle}{}{\pagestyle{frontmatterstyle}}%
 }
 \newcommand{\makeneutitle}{%
 	\neu@setheaderprefix% 根据学位（学士/硕士/博士）自动生成页眉前缀
@@ -628,7 +650,7 @@
 {
 \chapter{\neu@value@declare@create}\chaptermark{\neu@value@declare@create}
 
-\ifneu@english\thispagestyle{noheaderstyle}\fi
+\thispagestyle{noheaderstyle}% the header starts at the abstract
 \linespread{1.83}
 \zihao{4}
 {\neu@value@declare@creativity}
@@ -638,7 +660,7 @@
 {\hfill{} {\neu@value@declare@d \hspace*{6em}}}
 
 \ifneu@english
-	\cleardoublepage
+	\cleardoublepage[empty]
 	\thispagestyle{empty}
 	\chapter{\neu@value@declare@right}\chaptermark{\neu@value@declare@right}
 	\thispagestyle{noheaderstyle}
@@ -685,11 +707,9 @@
 \vspace*{\stretch{1}}
 }
 \clearpage
-\ifneu@english
-	\if@twoside
-		\thispagestyle{empty}
-		\cleardoublepage[empty]
-	\fi
+\if@twoside
+	\thispagestyle{empty}
+	\cleardoublepage[empty]
 \fi
 }
 %---------------------------------------------------------------------------%
